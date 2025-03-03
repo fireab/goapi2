@@ -1,0 +1,58 @@
+# Binaries and build artifacts
+*.exe
+*.out
+*.o
+*.so
+*.a
+
+
+# Go build directory
+/bin/
+/build/
+
+# Go modules
+/go/pkg/
+/go/bin/
+/go/src/
+/vendor/
+bin/
+obj/
+
+
+# Go dependency files
+go.sum
+go.work
+go.work.sum
+
+# Compiled executable
+*.exe
+*.dll
+*.dylib
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# Logs and temporary files
+*.log
+*.tmp
+*.cache
+.DS_Store
+
+# Test results
+*.test
+coverage.out
+
+# Docker and deployment
+docker-compose.override.yml
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
+
+goapi2
