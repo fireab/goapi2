@@ -1,9 +1,8 @@
 package main
 
 import (
-	"github.com/fireab/goapi2/controllers"
 	"github.com/fireab/goapi2/initializers"
-	"github.com/gin-gonic/gin"
+	"github.com/fireab/goapi2/routers"
 )
 
 func init() {
@@ -12,11 +11,6 @@ func init() {
 
 }
 func main() {
-	r := gin.Default()
-	r.Use(gin.Logger())
-	r.GET("/post", controllers.PostsFind)
-
-	r.POST("/post", controllers.PostsCreate)
-	r.GET(("/post/:id"), controllers.FindOne)
+	r := routers.InitRoutes()
 	r.Run()
 }
