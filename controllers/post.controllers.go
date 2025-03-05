@@ -3,10 +3,12 @@ package controllers
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/fireab/goapi2/initializers"
 	"github.com/fireab/goapi2/models"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 func PostsCreate(c *gin.Context) {
@@ -62,5 +64,35 @@ func FindOne(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"post": post,
+	})
+}
+
+func UploadFile(c *gin.Context) {
+	// single file
+	file, err1 := c.FormFile("file")
+
+	if err1 != nil {
+		fmt.Println("error", err1)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Failed to read file",
+		})
+		return
+	}
+
+	fmt.Println("file information", file.Filename, file.Size, file.Header)
+	fileExtention := strings.Split(file.Filename, ".")[len(strings.Split(file.Filename, "."))-1]
+	updatedFileName := uuid.New().String() + "." + fileExtention
+
+	err := c.SaveUploadedFile(file, "./uploads/"+updatedFileName)
+	if err != nil {
+		fmt.Println("error", err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Failed to upload file",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"file": updatedFileName,
 	})
 }
