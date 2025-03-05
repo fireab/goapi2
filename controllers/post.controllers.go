@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/fireab/goapi2/initializers"
@@ -25,7 +26,7 @@ func PostsCreate(c *gin.Context) {
 
 	// create the post
 	post := models.Post{Title: body.Title, Body: body.Body}
-	initializers.DB.Create(&post) // pass pointer of data to Create
+	initializers.DB.Create(&post)
 
 	// return
 	c.JSON(http.StatusOK, gin.H{
@@ -34,7 +35,8 @@ func PostsCreate(c *gin.Context) {
 }
 
 func PostsFind(c *gin.Context) {
-
+	val, _ := c.Get("user_id")
+	fmt.Println(val)
 	var posts []models.Post
 
 	initializers.DB.Find(&posts)
