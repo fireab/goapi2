@@ -13,6 +13,9 @@ func PostRoutes(rg *gin.RouterGroup) {
 	post.GET("/", controllers.PostsFind)
 	post.POST("/", controllers.PostsCreate)
 	post.POST("/upload", controllers.UploadFile)
+	post.POST("/upload/multiple", controllers.UploadFiles)
+	// post.POST("/upload/multiple/anyfile", controllers.UploadAnyFile)
+
 	post.GET("/:id", controllers.FindOne)
 
 }

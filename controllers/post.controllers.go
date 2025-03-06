@@ -96,3 +96,37 @@ func UploadFile(c *gin.Context) {
 		"file": updatedFileName,
 	})
 }
+
+func UploadFiles(c *gin.Context) {
+
+	form, _ := c.MultipartForm()
+	files := form.File["files"]
+	var response []string
+
+	for _, file := range files {
+		newFileName := uuid.New().String() + "." + strings.Split(file.Filename, ".")[len(strings.Split(file.Filename, "."))-1]
+		response = append(response, newFileName)
+		dst := "./uploads/" + newFileName
+		// Upload the file to specific dst.
+		c.SaveUploadedFile(file, dst)
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"files": response,
+	})
+}
+
+// func UploadAnyFile(c *gin.Context) {
+// 	form, _ := c.MultipartForm()
+// 	files := form.File
+// 	var response []string
+
+// 	for _, file := range files {
+// 		for _, value := range file {
+// 			fmt.Println("file_name", value.Header.Get("name"))
+// 		}
+// 	}
+
+// 	c.JSON(http.StatusOK, gin.H{
+// 		"files": response,
+// 	})
+// }
